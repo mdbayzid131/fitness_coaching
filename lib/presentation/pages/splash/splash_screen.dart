@@ -1,0 +1,40 @@
+import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+
+import '../../../routes/routes.dart';
+
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    jumpToNextScreen();
+  }
+
+  void jumpToNextScreen() {
+    Future.delayed(const Duration(seconds: 3), () {
+      Get.offNamed(RoutePages.loginScreen);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Center(child: Image.asset('assets/images/splash_image.png')),
+        ],
+      ),
+    );
+  }
+}
