@@ -9,6 +9,7 @@ class CustomTextField extends StatelessWidget {
   final Widget?  prefixIcon;
   final Widget?  suffixIcon;
   final bool?  isLabelVisible;
+  final int?  maxLines;
 
   const CustomTextField({
     super.key,
@@ -16,7 +17,7 @@ class CustomTextField extends StatelessWidget {
     required this.label,
     this.controller,
     this.obscureText,
-    this.validator, this.prefixIcon, this.suffixIcon, this.isLabelVisible=true,
+    this.validator, this.prefixIcon, this.suffixIcon, this.isLabelVisible=true, this.maxLines,
   });
 
   @override
@@ -35,6 +36,7 @@ class CustomTextField extends StatelessWidget {
           ),
         SizedBox(height: 6),
         TextFormField(
+          maxLines: maxLines ?? 1,
           controller: controller,
           validator: validator,
           obscureText: obscureText ?? false,

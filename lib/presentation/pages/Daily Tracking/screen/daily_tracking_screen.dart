@@ -1,4 +1,6 @@
 import 'package:fitness_coaching_app/presentation/widgets/custom_container.dart';
+import 'package:fitness_coaching_app/presentation/widgets/custom_elevated_button.dart';
+import 'package:fitness_coaching_app/presentation/widgets/custom_radio.dart';
 import 'package:fitness_coaching_app/presentation/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +9,7 @@ import 'package:get/get.dart';
 
 import '../../../../core/constants/app_image_and_icon.dart';
 import '../../../widgets/custom_appbar.dart';
+import '../../../widgets/custom_drop_down.dart';
 import '../../../widgets/custom_slider.dart';
 import '../controller/daily_tracking_controller.dart';
 
@@ -23,7 +26,20 @@ class _DailyTrackingScreenState extends State<DailyTrackingScreen> {
   final TextEditingController weightCtrl = TextEditingController();
   final TextEditingController sleepCtrl = TextEditingController();
   final TextEditingController bodyTempCtrl = TextEditingController();
-  final TextEditingController _controller4 = TextEditingController();
+  final TextEditingController activityCtrl = TextEditingController();
+
+  final TextEditingController caloriesCtrl = TextEditingController();
+  final TextEditingController carbsCtrl = TextEditingController();
+  final TextEditingController proteinCtrl = TextEditingController();
+  final TextEditingController fatsCtrl = TextEditingController();
+  final TextEditingController cycleDayCtrl = TextEditingController();
+  final TextEditingController sideEffectsCtrl = TextEditingController();
+
+  final TextEditingController systolic = TextEditingController();
+  final TextEditingController diastolic = TextEditingController();
+  final TextEditingController restingHeartRate = TextEditingController();
+  final TextEditingController bloodGlucose = TextEditingController();
+  final TextEditingController dailyNotes = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -200,19 +216,20 @@ class _DailyTrackingScreenState extends State<DailyTrackingScreen> {
                   Obx(
                     () => Column(
                       children: [
-                        buildRadioOption(
-                          "Yes",
-                          true,
-                          _controller.isSick.value,
-                          (val) {
+                        CustomRadio(
+                          label: "Yes",
+                          value: true,
+                          groupValue: _controller.isSick.value,
+                          onChanged: (val) {
                             _controller.isSick.value = val;
                           },
                         ),
-                        buildRadioOption(
-                          "No",
-                          false,
-                          _controller.isSick.value,
-                          (val) {
+
+                        CustomRadio(
+                          label: "No",
+                          value: false,
+                          groupValue: _controller.isSick.value,
+                          onChanged: (val) {
                             _controller.isSick.value = val;
                           },
                         ),
@@ -349,63 +366,10 @@ class _DailyTrackingScreenState extends State<DailyTrackingScreen> {
                   ),
                   SizedBox(height: 14),
 
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Color(0xFF182233),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Obx(
-                      () => DropdownButtonHideUnderline(
-                        child: DropdownButton<String>(
-                          dropdownColor: Color(
-                            0xFF1F2A3A,
-                          ), // dropdown background dark
-                          borderRadius: BorderRadius.circular(12),
-
-                          value: _controller.trainingCompleted.value,
-
-                          hint: Text(
-                            "Training Completed?",
-                            style: TextStyle(color: Colors.white, fontSize: 16),
-                          ),
-
-                          icon: Icon(
-                            Icons.keyboard_arrow_right,
-                            color: Colors.white,
-                          ),
-
-                          items: [
-                            DropdownMenuItem(
-                              value: "Not Yet selected",
-                              child: Text(
-                                "Training Completed?",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                            DropdownMenuItem(
-                              value: "Yes",
-                              child: Text(
-                                "Yes",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                            DropdownMenuItem(
-                              value: "No",
-                              child: Text(
-                                "No",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ],
-
-                          onChanged: (value) {
-                            _controller.trainingCompleted.value = value!;
-                          },
-                        ),
-                      ),
-                    ),
+                  CustomDropDown(
+                    value: _controller.trainingCompleted,
+                    items: ['Yes', 'No'],
+                    hintText: 'Training Completed?',
                   ),
 
                   const SizedBox(height: 8),
@@ -465,129 +429,428 @@ class _DailyTrackingScreenState extends State<DailyTrackingScreen> {
 
                   const SizedBox(height: 20),
 
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Color(0xFF182233),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Obx(
-                      () => DropdownButtonHideUnderline(
-                        child: DropdownButton<String>(
-                          dropdownColor: Color(
-                            0xFF1F2A3A,
-                          ), // dropdown background dark
-                          borderRadius: BorderRadius.circular(12),
-
-                          value: _controller.cardioCompleted.value,
-
-                          hint: Text(
-                            "Cardio Completed?",
-                            style: TextStyle(color: Colors.white, fontSize: 16),
-                          ),
-
-                          icon: Icon(
-                            Icons.keyboard_arrow_right,
-                            color: Colors.white,
-                          ),
-
-                          items: [
-                            DropdownMenuItem(
-                              value: "Not Yet selected",
-                              child: Text(
-                                "Cardio Completed?",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                            DropdownMenuItem(
-                              value: "Yes",
-                              child: Text(
-                                "Yes",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                            DropdownMenuItem(
-                              value: "No",
-                              child: Text(
-                                "No",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ],
-
-                          onChanged: (value) {
-                            _controller.cardioCompleted.value = value!;
-                          },
-                        ),
-                      ),
-                    ),
+                  CustomDropDown(
+                    value: _controller.cardioCompleted,
+                    items: ['Yes', 'No'],
+                    hintText: 'Cardio Completed?',
                   ),
 
                   const SizedBox(height: 8),
                   _buildTitleCard("Cardio Type ?"),
+                  const SizedBox(height: 16),
 
                   Obx(
                     () => Column(
                       children: [
-                        buildRadioOption(
-                          "Yes",
-                          true,
-                          _controller.cardioType.value,
-                          (val) {
+                        CustomRadio(
+                          label: "Yes",
+                          value: true,
+                          groupValue: _controller.cardioType.value,
+                          onChanged: (val) {
                             _controller.cardioType.value = val;
                           },
                         ),
-                        buildRadioOption(
-                          "No",
-                          false,
-                          _controller.cardioType.value,
-                          (val) {
+
+                        CustomRadio(
+                          label: "No",
+                          value: false,
+                          groupValue: _controller.cardioType.value,
+                          onChanged: (val) {
                             _controller.cardioType.value = val;
                           },
                         ),
                       ],
                     ),
                   ),
+
+                  CustomTextField(hintText: "Duration  (minutes)", label: ""),
                 ],
               ),
             ),
+            SizedBox(height: 15),
+            CustomContainer(
+              height: 140,
+              width: 392,
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      SvgPicture.asset(AppImageAndIcon.activitySteps),
+                      SizedBox(width: 10.w),
+                      Text(
+                        'Activity Steps ',
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xffffffff),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 14),
+
+                  CustomTextField(
+                    controller: activityCtrl,
+                    isLabelVisible: false,
+                    hintText: "Type Here...",
+                    label: '',
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            CustomContainer(
+              width: 392,
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      SvgPicture.asset(AppImageAndIcon.nutrition),
+                      SizedBox(width: 10.w),
+                      Text(
+                        'Nutrition',
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xffffffff),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 14),
+
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Calories',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                            CustomTextField(
+                              controller: caloriesCtrl,
+                              isLabelVisible: false,
+                              hintText: "Type Here...",
+                              label: '',
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 20.w),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Carbs',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                            CustomTextField(
+                              controller: carbsCtrl,
+                              isLabelVisible: false,
+                              hintText: "Type Here...",
+                              label: '',
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 8),
+
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Protein',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                            CustomTextField(
+                              controller: proteinCtrl,
+                              isLabelVisible: false,
+                              hintText: "Type Here...",
+                              label: '',
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 20.w),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Fats',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                            CustomTextField(
+                              controller: fatsCtrl,
+                              isLabelVisible: false,
+                              hintText: "Type Here...",
+                              label: '',
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 8),
+                  CustomSlider(
+                    label: 'Hunger(1-10)',
+                    value: _controller.hungerValue,
+                  ),
+                  SizedBox(height: 8),
+                  CustomSlider(
+                    label: 'Digestion(1-10)',
+                    value: _controller.digestionValue,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            CustomContainer(
+              width: 392,
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      SvgPicture.asset(AppImageAndIcon.women),
+                      SizedBox(width: 10.w),
+                      Text(
+                        'Women ',
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xffffffff),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 14),
+
+                  CustomDropDown(
+                    value: _controller.cyclePhase,
+                    items: [
+                      'Follicular',
+                      'Ovulation',
+                      'Luteal',
+                      'Menstruation',
+                    ],
+                    hintText: 'Cycle Phase?',
+                  ),
+                  SizedBox(height: 10),
+
+                  CustomTextField(
+                    controller: cycleDayCtrl,
+                    isLabelVisible: false,
+                    hintText: "cycle Day ( Monday)",
+                    label: '',
+                  ),
+                  SizedBox(height: 10),
+                  CustomSlider(
+                    label: 'PMS Symptoms(1-10) ',
+                    value: _controller.pmsSymptomsValue,
+                  ),
+                  SizedBox(height: 10),
+                  CustomSlider(
+                    label: 'Cramps(1-10)',
+                    value: _controller.crampsValue,
+                  ),
+                  SizedBox(height: 10),
+                  CustomDropDown(
+                    value: _controller.symptoms,
+                    items: [
+                      'Everything fine',
+                      'Cramps',
+                      'Breast tenderness',
+                      'Headache',
+                      'Acne',
+                      'Lower back pain',
+                      'Tiredness',
+                      'Cravings',
+                      'Sleepless',
+                      'Abdominal pain',
+                      'Vaginal itching',
+                      'Vaginal dryness',
+                      'Other',
+                    ],
+                    hintText: 'Symptoms',
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+
+            CustomContainer(
+              width: 392,
+              child: Column(
+                crossAxisAlignment: .start,
+                children: [
+                  Row(
+                    children: [
+                      SvgPicture.asset(AppImageAndIcon.women),
+                      SizedBox(width: 10.w),
+                      Text(
+                        'PED ',
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xffffffff),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 14),
+
+                  CustomDropDown(
+                    value: _controller.dailyDosageTaken,
+                    items: ['Yes', 'No'],
+                    hintText: 'Daily Dosage Taken',
+                  ),
+                  SizedBox(height: 10),
+
+                  CustomTextField(
+                    maxLines: 2,
+                    controller: sideEffectsCtrl,
+                    isLabelVisible: true,
+                    hintText: "Type....",
+                    label: 'Side effects Notes',
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    children: [
+                      SvgPicture.asset(AppImageAndIcon.bloodPressure),
+                      SizedBox(width: 10.w),
+                      Text(
+                        'Blood Pressure(Everybody) ',
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xffffffff),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 14),
+
+                  Text(
+                    'Systolic ',
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xffffffff),
+                    ),
+                  ),
+
+                  SizedBox(height: 5),
+
+                  CustomTextField(
+                    controller: activityCtrl,
+                    isLabelVisible: false,
+                    hintText: "120 (mmhg)",
+                    label: '',
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    'Diastolic ',
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xffffffff),
+                    ),
+                  ),
+
+                  SizedBox(height: 5),
+
+                  CustomTextField(
+                    controller: activityCtrl,
+                    isLabelVisible: false,
+                    hintText: "80 (mmhg)",
+                    label: '',
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    'Resting heart rate',
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xffffffff),
+                    ),
+                  ),
+
+                  SizedBox(height: 5),
+
+                  CustomTextField(
+                    controller: activityCtrl,
+                    isLabelVisible: false,
+                    hintText: "40-60 (BPM)",
+                    label: '',
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    'Blood glucose ',
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xffffffff),
+                    ),
+                  ),
+
+                  SizedBox(height: 5),
+
+                  CustomTextField(
+                    controller: activityCtrl,
+                    isLabelVisible: false,
+                    hintText: "Type...",
+                    label: '',
+                  ),
+                  SizedBox(height: 5),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            CustomContainer(
+              child: Column(
+                children: [
+                  CustomTextField(
+                    hintText: 'Type...',
+                    label: 'Daily Notes',
+                    maxLines: 3,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            CustomElevatedButton(label: 'Submit', onPressed: () {}),
+            SizedBox(height: 10),
           ],
         ),
       ),
     );
   }
 
-  Widget buildRadioOption(
-    String label,
-    bool value,
-    dynamic groupValue,
-    Function(dynamic) onChanged,
-  ) => Row(
-    children: [
-      Radio(
-        value: value,
-        groupValue: groupValue,
-        onChanged: onChanged,
-        side: BorderSide(width: 1, color: Colors.green),
-        activeColor: Colors.green,
 
-        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        visualDensity: VisualDensity.compact,
-      ),
-
-      Text(
-        label,
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-        ),
-      ),
-    ],
-  );
-
-  // ---------------- UI Components ---------------- //
 
   Widget _buildTitleCard(String text) {
     return Container(

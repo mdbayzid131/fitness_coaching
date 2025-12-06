@@ -83,19 +83,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: Color(0xff909090),
                         size: 18,
                       ),
-                      suffixIcon:  IconButton(
-                          onPressed: () {
-                            _authController.isPasswordVisible.value =
-                                !_authController.isPasswordVisible.value;
-                          },
-                          icon: Icon(
-                            _authController.isPasswordVisible.value
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                            color: Color(0xff909090),
-                            size: 18,
-                          ),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          _authController.isPasswordVisible.value =
+                              !_authController.isPasswordVisible.value;
+                        },
+                        icon: Icon(
+                          _authController.isPasswordVisible.value
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: Color(0xff909090),
+                          size: 18,
                         ),
+                      ),
 
                       hintText: 'Enter your password',
                       label: 'Password',
