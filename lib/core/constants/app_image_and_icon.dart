@@ -15,6 +15,10 @@ class AppImageAndIcon {
   static final String questions = 'assets/icons/questions.svg';
   static final String checking = 'assets/icons/Checking.svg';
   static final String toffey = 'assets/icons/toffy.svg';
+  static final String file = 'assets/icons/file.svg';
+  static final String selectImage = 'assets/icons/select image.svg';
+  static final String dragAndDrop = 'assets/icons/darg and drop.svg';
+  static final String video = 'assets/icons/video.svg';
 
   static final String sleepIcon = 'assets/icons/sleep_icon.svg';
   static final String profileIcon = 'assets/icons/profile.svg';
